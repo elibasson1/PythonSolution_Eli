@@ -54,10 +54,12 @@ def stop_docker_container(ssh, container_id):
 
 # Establishes SSH connection based on the settings in the config.ini file.
 def establish_ssh_connection():
-    username = read_config_ini()['Server']['user']
-    private_key_path = read_config_ini()['Server']['private_key_path']
-    host = read_config_ini()['Server']['host']
-    port = read_config_ini()['Server']['port']
+    config = read_config_ini()['Server']
+
+    username = config['user']
+    private_key_path = config['private_key_path']
+    host = config['host']
+    port = config['port']
 
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
