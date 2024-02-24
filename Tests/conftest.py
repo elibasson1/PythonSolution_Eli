@@ -5,8 +5,6 @@ import pytest
 from Util.Logger import getLogger
 from Util.Read_INI_File import read_config_ini
 
-pytest.global_var = None
-
 
 @pytest.fixture(scope="class", autouse=True)
 def setup(request):

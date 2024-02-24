@@ -9,6 +9,7 @@ from Util.Read_INI_File import read_config_ini
 
 @pytest.mark.usefixtures("setup")
 class Test_application:
+    tmp_input_string = None
 
     # Test reverse API with valid input
     @pytest.mark.parametrize("data", data_for_reversed_strings())
@@ -24,13 +25,14 @@ class Test_application:
 
         assert response.status_code == 200
         assert data_response["result"] == expected_result
-        pytest.global_var = data["input_string"]
+        # pytest.global_var = data["input_string"]
+        Test_application.tmp_input_string = data["input_string"]
 
     # Test restore API with valid input
     def test_restore_valid_input(self):
         log = getLogger()
         url = "http://" + read_config_ini()['Server']['host'] + ":" + read_config_ini()['Port']['Port']
-        expected_result = pytest.global_var
+        expected_result = Test_application.tmp_input_string
 
         response = requests.get(url + "/restore")
         data_response = response.json()
