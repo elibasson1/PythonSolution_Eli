@@ -11,11 +11,16 @@ from Util.Read_INI_File import read_config_ini
 class Test_application:
     tmp_input_string = None
 
+    @staticmethod
+    def build_url():
+        url = "http://" + read_config_ini()['Server']['host'] + ":" + read_config_ini()['Port']['Port']
+        return url
+
     # Test reverse API with valid input
     @pytest.mark.parametrize("data", data_for_reversed_strings())
     def test_reverse_valid_input(self, data):
         log = getLogger()
-        url = "http://" + read_config_ini()['Server']['host'] + ":" + read_config_ini()['Port']['Port']
+        url = self.build_url()
         input_string = data["input_string"]
         expected_result = data["expected_result"]
 
@@ -31,7 +36,7 @@ class Test_application:
     # Test restore API with valid input
     def test_restore_valid_input(self):
         log = getLogger()
-        url = "http://" + read_config_ini()['Server']['host'] + ":" + read_config_ini()['Port']['Port']
+        url = self.build_url()
         expected_result = Test_application.tmp_input_string
 
         response = requests.get(url + "/restore")
@@ -44,7 +49,7 @@ class Test_application:
     # Test reverse with empty input
     def test_reverse_empty_input(self):
         log = getLogger()
-        url = "http://" + read_config_ini()['Server']['host'] + ":" + read_config_ini()['Port']['Port']
+        url = self.build_url()
 
         response = requests.get(url + "/reverse")
         data_response = response.json()
@@ -56,7 +61,7 @@ class Test_application:
     # Test restore with empty input
     def test_restore_empty_input(self):
         log = getLogger()
-        url = "http://" + read_config_ini()['Server']['host'] + ":" + read_config_ini()['Port']['Port']
+        url = self.build_url()
 
         response = requests.get(url + "/restore")
         data_response = response.json()
@@ -68,7 +73,7 @@ class Test_application:
     # Test API with invalid input
     def test_restore_invalid_input(self):
         log = getLogger()
-        url = "http://" + read_config_ini()['Server']['host'] + ":" + read_config_ini()['Port']['Port']
+        url = self.build_url()
         response = requests.get(url)
         log.info("Response status code:" + str(response.status_code))
         assert response.status_code == 404
