@@ -8,3 +8,9 @@ def data_for_reversed_strings():
          }
     ]
     return data
+
+
+def data_for_invalid_inputs():
+    return [
+        {"input": "/invalid-endpoint"},
+    ]
