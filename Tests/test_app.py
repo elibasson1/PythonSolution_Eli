@@ -66,7 +66,7 @@ class Test_application(URLHandler):
     def test_restore_invalid_input(self, invalid_input):
         log = getLogger()
         url = self.build_url()
-        url_invalid_endpoint = f"{url}{invalid_input['input']}"
+        url_invalid_endpoint = url + invalid_input['input']
 
         response = self.restore_request(url_invalid_endpoint)
         log.info("Response status code:" + str(response.status_code))

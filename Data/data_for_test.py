@@ -12,5 +12,5 @@ def data_for_reversed_strings():
 
 def data_for_invalid_inputs():
     return [
-        {"input": "/invalid-endpoint"},
+        {"input": "/invalid-endpoint"}
     ]
